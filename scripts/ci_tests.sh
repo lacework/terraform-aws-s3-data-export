@@ -6,10 +6,12 @@
 #
 set -eou pipefail
 
-readonly project_name=terraform-<PROVIDER>-<NAME>
+readonly project_name=terraform-aws-s3-data-export
 
 TEST_CASES=(
   examples/default
+  examples/existing-bucket
+  examples/existing-iam-role
 )
 
 log() {
