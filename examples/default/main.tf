@@ -1,5 +1,5 @@
 provider "lacework" {}
 
-module "lacework_module" {
+module "lacework_s3_data_export" {
   source = "../.."
 }
