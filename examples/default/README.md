@@ -15,7 +15,7 @@ terraform {
 
 provider "lacework" {}
 
-module "lacework_module" {
+module "s3_data_export" {
   source  = "lacework/s3-data-export/aws"
   version = "~> 0.1"
 }
