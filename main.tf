@@ -9,7 +9,8 @@ locals {
   iam_role_name = var.use_existing_iam_role ? var.iam_role_name : (
     length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
   )
-  mfa_delete = var.bucket_enable_versioning && var.bucket_enable_mfa_delete
+  mfa_delete               = var.bucket_enable_versioning && var.bucket_enable_mfa_delete ? "Enabled" : "Disabled"
+  bucket_enable_versioning = var.bucket_enable_versioning ? "Enabled" : "Suspended"
 }
 
 resource "random_id" "uniq" {
@@ -67,25 +68,28 @@ resource "aws_s3_bucket" "s3_data_export_bucket" {
   count         = var.use_existing_s3_bucket ? 0 : 1
   bucket        = local.bucket_name
   force_destroy = var.bucket_force_destroy
+  tags          = var.tags
+}
 
-  versioning {
-    enabled    = var.bucket_enable_versioning
+// v4 s3 bucket changes
+resource "aws_s3_bucket_versioning" "export__versioning" {
+  count  = var.use_existing_s3_bucket ? 0 : 1
+  bucket = aws_s3_bucket.s3_data_export_bucket[0].id
+  versioning_configuration {
+    status     = local.bucket_enable_versioning
     mfa_delete = local.mfa_delete
   }
+}
 
-  dynamic "server_side_encryption_configuration" {
-    for_each = var.bucket_enable_encryption == true ? [1] : []
-    content {
-      rule {
-        apply_server_side_encryption_by_default {
-          kms_master_key_id = var.bucket_sse_key_arn
-          sse_algorithm     = var.bucket_sse_algorithm
-        }
-      }
+resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_log_encryption" {
+  count  = var.bucket_enable_encryption && !var.use_existing_s3_bucket ? 1 : 0
+  bucket = aws_s3_bucket.s3_data_export_bucket[0].id
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = var.bucket_sse_key_arn
+      sse_algorithm     = var.bucket_sse_algorithm
     }
   }
-
-  tags = var.tags
 }
 
 # wait for X seconds for things to settle down in the AWS side
