@@ -9,7 +9,7 @@ locals {
   iam_role_name = var.use_existing_iam_role ? var.iam_role_name : (
     length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
   )
-  mfa_delete     = var.bucket_enable_versioning && var.bucket_enable_mfa_delete ? "Enabled" : "Disabled"
+  mfa_delete               = var.bucket_enable_versioning && var.bucket_enable_mfa_delete ? "Enabled" : "Disabled"
   bucket_enable_versioning = var.bucket_enable_versioning ? "Enabled" : "Suspended"
 }
 
