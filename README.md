@@ -7,6 +7,31 @@
 
 A Terraform Module to configure the S3 Data Export integration for Lacework.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_lacework"></a> [lacework](#requirement\_lacework) | ~> 0.3 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.1 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.6 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 0.3 |
+| <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
+| <a name="provider_time"></a> [time](#provider\_time) | ~> 0.6 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_lacework_s3_iam_role"></a> [lacework\_s3\_iam\_role](#module\_lacework\_s3\_iam\_role) | lacework/iam-role/aws | ~> 0.1 |
+
 ## Inputs
 
 | Name                        | Description                                                                                                          | Type          | Default                     | Required |
