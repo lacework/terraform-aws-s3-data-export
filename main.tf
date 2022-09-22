@@ -110,3 +110,9 @@ resource "lacework_alert_channel_aws_s3" "data_export" {
   }
   depends_on = [time_sleep.wait_time]
 }
+
+resource "lacework_data_export_rule" "example" {
+  name            = var.lacework_data_export_rule_name
+  description     = var.lacework_data_export_rule_description
+  integration_ids = [lacework_alert_channel_aws_s3.data_export.id]
+}
