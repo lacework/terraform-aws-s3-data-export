@@ -1,14 +1,12 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v1.0.0`.
+Another day, another release. These are the release notes for the version `v1.1.0`.
 
 ## Features
-* feat: update required version to v4 for aws provider (Darren Murray)([a66b76c](https://github.com/lacework/terraform-aws-s3-data-export/commit/a66b76c31177c1236a60d19c7d262f43bba89847))
-## Refactor
-* refactor: major version bump to 1.0.0 (Salim Afiune Maya)([c9d722d](https://github.com/lacework/terraform-aws-s3-data-export/commit/c9d722dd9bd3a79c781bac781c8961fe15d815f8))
+* feat: use lacework_data_export_rule resource (Darren Murray)([1ef8295](https://github.com/lacework/terraform-aws-s3-data-export/commit/1ef829591062ae44fc23bc28630d590733151da7))
+* feat: deprecate support for Terraform 0.12 and 0.13 (Darren Murray)([3fba467](https://github.com/lacework/terraform-aws-s3-data-export/commit/3fba4678a488b2d2df99bd9c396a1e0321eee2c7))
 ## Documentation Updates
-* docs: Add contributing documentation (#5) (Darren)([e98ec59](https://github.com/lacework/terraform-aws-s3-data-export/commit/e98ec59d0015a940d4d414235858eff2a5e56db5))
-* docs: update module name in default example (#4) (Salim Afiune)([9bab518](https://github.com/lacework/terraform-aws-s3-data-export/commit/9bab5187d2e2e7d5c1b9194273d2c00b50e02492))
+* docs: add example (Darren Murray)([c76aed6](https://github.com/lacework/terraform-aws-s3-data-export/commit/c76aed60f9282f6d8a5622649a8a48bcef8dd327))
+* docs: update Lacework provider version in readme (Sourcegraph)([320cac2](https://github.com/lacework/terraform-aws-s3-data-export/commit/320cac266ee32d4924377b9fca52ed4728612842))
 ## Other Changes
-* chore: update PR template (#6) (Darren)([9eafdb6](https://github.com/lacework/terraform-aws-s3-data-export/commit/9eafdb695ffae046e273e8b06038fa5ce52b9a71))
-* chore: version bump to v0.2.1-dev (Lacework)([5a4c4b8](https://github.com/lacework/terraform-aws-s3-data-export/commit/5a4c4b81b8028a0245c842006bd8cbf34bf2b6f8))
-* ci: sign lacework-releng commits (#3) (Salim Afiune)([5b399d7](https://github.com/lacework/terraform-aws-s3-data-export/commit/5b399d7725818d3cc99df4d2dc6781b7be83317c))
+* chore: update Lacework provider version to v1 (Sourcegraph)([67d4f47](https://github.com/lacework/terraform-aws-s3-data-export/commit/67d4f47479f0b9b29bea0724de1dd11b46d08057))
+* ci: version bump to v1.0.1-dev (Lacework)([e1dc4ee](https://github.com/lacework/terraform-aws-s3-data-export/commit/e1dc4eec859bd807ecb5039f01023df954d099e1))
