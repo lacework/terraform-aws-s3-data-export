@@ -81,6 +81,18 @@ variable "lacework_alert_channel_name" {
   description = "The name of the Alert Channel in Lacework."
 }
 
+variable "lacework_data_export_rule_name" {
+  type        = string
+  default     = "TF S3 Data Export Rule"
+  description = "The name of the Data Export Rule in Lacework."
+}
+
+variable "lacework_data_export_rule_description" {
+  type        = string
+  default     = ""
+  description = "The description of the Data Export Rule in Lacework."
+}
+
 variable "lacework_aws_account_id" {
   type        = string
   default     = "434813966438"
