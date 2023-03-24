@@ -11,6 +11,7 @@ readonly project_name=terraform-aws-s3-data-export
 TEST_CASES=(
   examples/default
   examples/existing-bucket
+  examples/existing-log-bucket
   examples/existing-iam-role
 )
 
@@ -38,9 +39,15 @@ lint_tests() {
   terraform fmt -check
 }
 
+sec_tests() {
+  # TODO: replace with `lacework iac tf-scan tfsec -m MEDIUM`
+  tfsec -m MEDIUM
+}
+
 main() {
   lint_tests
   integration_tests
+  sec_tests
 }
 
 main || exit 99
