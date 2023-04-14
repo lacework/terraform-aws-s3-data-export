@@ -1,7 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v1.1.1`.
+Another day, another release. These are the release notes for the version `v1.1.2`.
 
 ## Bug Fixes
-* fix: tfsec violations (jon-stewart)([c8ec3a9](https://github.com/lacework/terraform-aws-s3-data-export/commit/c8ec3a93bca4cbb6bf65d5fa6a6c6606fa8284a1))
+* fix: s3 bucket ownership controls (jon-stewart)([92a4d14](https://github.com/lacework/terraform-aws-s3-data-export/commit/92a4d14b9781c33e84726fc1c6df96e07ce43769))
 ## Other Changes
-* ci: version bump to v1.1.1-dev (Lacework)([f80d0a7](https://github.com/lacework/terraform-aws-s3-data-export/commit/f80d0a76fc0f0a45dc9345a219b666ac0b753714))
+* ci: version bump to v1.1.2-dev (Lacework)([3363a0a](https://github.com/lacework/terraform-aws-s3-data-export/commit/3363a0ad192d4d0e62f4287f92bd3f77ae5899a3))
