@@ -155,14 +155,23 @@ resource "aws_s3_bucket" "s3_data_export_bucket" {
   tags          = var.tags
 }
 
-  resource "aws_s3_bucket_public_access_block" "s3_data_export_bucket_access" {
-    count                   = var.use_existing_s3_bucket ? 0 : 1
-    bucket                  = aws_s3_bucket.s3_data_export_bucket[0].id
-    block_public_acls       = true
-    block_public_policy     = true
-    ignore_public_acls      = true
-    restrict_public_buckets = true
+resource "aws_s3_bucket_ownership_controls" "s3_data_export_bucket_ownership_controls" {
+  count  = var.use_existing_s3_bucket ? 0 : 1 
+  bucket = aws_s3_bucket.s3_data_export_bucket[0].id
+
+  rule {
+    object_ownership = "ObjectWriter"
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "s3_data_export_bucket_access" {
+  count                   = var.use_existing_s3_bucket ? 0 : 1
+  bucket                  = aws_s3_bucket.s3_data_export_bucket[0].id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 
 // v4 s3 bucket changes
 resource "aws_s3_bucket_versioning" "export__versioning" {
@@ -198,6 +207,15 @@ resource "aws_s3_bucket" "log_bucket" {
   bucket        = local.log_bucket_name
   force_destroy = var.bucket_force_destroy
   tags          = var.tags
+}
+
+resource "aws_s3_bucket_ownership_controls" "log_bucket_ownership_controls" {
+  count  = var.use_existing_access_log_bucket ? 0 : (var.bucket_logs_disabled ? 0 : 1)
+  bucket = aws_s3_bucket.log_bucket[0].id
+
+  rule {
+    object_ownership = "ObjectWriter"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "log_bucket_access" {
