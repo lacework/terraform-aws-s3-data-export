@@ -17,6 +17,6 @@ provider "lacework" {}
 
 module "s3_data_export" {
   source  = "lacework/s3-data-export/aws"
-  version = "~> 0.1"
+  version = "~> 1.0"
 }
 ```

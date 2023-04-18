@@ -27,7 +27,7 @@ provider "lacework" {}
 
 module "lacework_module" {
   source  = "lacework/s3-data-export/aws"
-  version = "~> 0.1"
+  version = "~> 1.0"
 
   use_existing_s3_bucket         = true
   use_existing_access_log_bucket = true
