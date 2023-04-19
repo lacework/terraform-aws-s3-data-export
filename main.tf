@@ -3,12 +3,12 @@ locals {
   log_bucket_name = length(var.log_bucket_name) > 0 ? var.log_bucket_name : "${local.bucket_name}-access-logs"
   bucket_arn      = var.use_existing_s3_bucket ? trimsuffix(var.bucket_arn, "/") : aws_s3_bucket.s3_data_export_bucket[0].arn
   cross_account_policy_name = (
-    length(var.cross_account_policy_name) > 0 ? var.cross_account_policy_name : "${var.prefix}-cross-acct-policy-${random_id.uniq.hex}"
+  length(var.cross_account_policy_name) > 0 ? var.cross_account_policy_name : "${var.prefix}-cross-acct-policy-${random_id.uniq.hex}"
   )
   iam_role_arn         = module.lacework_s3_iam_role.created ? module.lacework_s3_iam_role.arn : var.iam_role_arn
   iam_role_external_id = module.lacework_s3_iam_role.created ? module.lacework_s3_iam_role.external_id : var.iam_role_external_id
   iam_role_name = var.use_existing_iam_role ? var.iam_role_name : (
-    length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
+  length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
   )
   mfa_delete               = var.bucket_enable_versioning && var.bucket_enable_mfa_delete ? "Enabled" : "Disabled"
   bucket_enable_versioning = var.bucket_enable_versioning ? "Enabled" : "Suspended"
@@ -72,7 +72,7 @@ data "aws_iam_policy_document" "cross_account_s3_write_access" {
     for_each = var.bucket_enable_encryption == true ? (var.bucket_sse_algorithm == "aws:kms" ? [1] : []) : []
     content {
       sid       = "EncryptFiles"
-      actions   = ["kms:Encrypt", "kms:Decrypt"]
+      actions   = ["kms:Encrypt", "kms:Decrypt", "kms:GenerateDataKey"]
       resources = [local.bucket_sse_key_arn]
     }
   }
@@ -81,70 +81,70 @@ data "aws_iam_policy_document" "cross_account_s3_write_access" {
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "kms_key_policy" {
-    version = "2012-10-17"
+  version = "2012-10-17"
 
-    count = local.create_kms_key
+  count = local.create_kms_key
 
-    statement {
-      sid    = "Enable account root to use/manage KMS key"
-      effect = "Allow"
-      principals {
-        type        = "AWS"
-        identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
-      }
-      actions   = ["kms:*"]
-      resources = ["*"]
+  statement {
+    sid    = "Enable account root to use/manage KMS key"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
+    actions   = ["kms:*"]
+    resources = ["*"]
+  }
 
-    statement {
-      sid    = "Allow S3 service to use KMS key when S3 is encrypted"
-      effect = "Allow"
-      principals {
-        type        = "Service"
-        identifiers = ["s3.amazonaws.com"]
-      }
-      actions = [
-        "kms:GenerateDataKey*",
-        "kms:Decrypt"
-      ]
-      resources = ["*"]
+  statement {
+    sid    = "Allow S3 service to use KMS key when S3 is encrypted"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["s3.amazonaws.com"]
     }
+    actions = [
+      "kms:GenerateDataKey*",
+      "kms:Decrypt"
+    ]
+    resources = ["*"]
+  }
 
-    statement {
-      sid    = "Allow Lacework to use KMS Key"
-      effect = "Allow"
-      principals {
-        identifiers = ["arn:aws:iam::${var.lacework_aws_account_id}:root"]
-        type        = "AWS"
-      }
-      actions = [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:GenerateDataKey*",
-        "kms:DescribeKey"
-      ]
-      resources = ["*"]
+  statement {
+    sid    = "Allow Lacework to use KMS Key"
+    effect = "Allow"
+    principals {
+      identifiers = ["arn:aws:iam::${var.lacework_aws_account_id}:root"]
+      type        = "AWS"
     }
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = ["*"]
+  }
 
-    statement {
-      sid    = "Allow principals in the account to decrypt with KMS key"
-      effect = "Allow"
-      principals {
-        type        = "AWS"
-        identifiers = ["*"]
-      }
-      actions = [
-        "kms:Decrypt",
-        "kms:ReEncryptFrom"
-      ]
-      resources = ["*"]
-      condition {
-        test     = "StringEquals"
-        variable = "kms:CallerAccount"
-        values   = [data.aws_caller_identity.current.account_id]
-      }
+  statement {
+    sid    = "Allow principals in the account to decrypt with KMS key"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
     }
+    actions = [
+      "kms:Decrypt",
+      "kms:ReEncryptFrom"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "kms:CallerAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+  }
 }
 
 #tfsec:ignore:aws-s3-enable-bucket-logging
@@ -156,7 +156,7 @@ resource "aws_s3_bucket" "s3_data_export_bucket" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_data_export_bucket_ownership_controls" {
-  count  = var.use_existing_s3_bucket ? 0 : 1 
+  count  = var.use_existing_s3_bucket ? 0 : 1
   bucket = aws_s3_bucket.s3_data_export_bucket[0].id
 
   rule {

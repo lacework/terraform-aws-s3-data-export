@@ -26,7 +26,7 @@ provider "lacework" {}
 
 module "lacework_module" {
   source  = "lacework/s3-data-export/aws"
-  version = "~> 0.1"
+  version = "~> 1.0"
 
   use_existing_iam_role = true
   iam_role_arn          = "arn:aws:iam::123456789012:role/lw-existing-role"
