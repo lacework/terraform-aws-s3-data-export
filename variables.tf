@@ -36,8 +36,8 @@ variable "bucket_enable_versioning" {
 
 variable "bucket_force_destroy" {
   type        = bool
-  default     = false
-  description = "Force destroy bucket (Required when bucket not empty)"
+  default     = true
+  description = "Force destroy bucket (if disabled, terraform will not be able do destroy non-empty bucket)"
 }
 
 variable "bucket_logs_disabled" {

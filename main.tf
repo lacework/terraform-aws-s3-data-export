@@ -3,17 +3,17 @@ locals {
   log_bucket_name = length(var.log_bucket_name) > 0 ? var.log_bucket_name : "${local.bucket_name}-access-logs"
   bucket_arn      = var.use_existing_s3_bucket ? trimsuffix(var.bucket_arn, "/") : aws_s3_bucket.s3_data_export_bucket[0].arn
   cross_account_policy_name = (
-  length(var.cross_account_policy_name) > 0 ? var.cross_account_policy_name : "${var.prefix}-cross-acct-policy-${random_id.uniq.hex}"
+    length(var.cross_account_policy_name) > 0 ? var.cross_account_policy_name : "${var.prefix}-cross-acct-policy-${random_id.uniq.hex}"
   )
   iam_role_arn         = module.lacework_s3_iam_role.created ? module.lacework_s3_iam_role.arn : var.iam_role_arn
   iam_role_external_id = module.lacework_s3_iam_role.created ? module.lacework_s3_iam_role.external_id : var.iam_role_external_id
   iam_role_name = var.use_existing_iam_role ? var.iam_role_name : (
-  length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
+    length(var.iam_role_name) > 0 ? var.iam_role_name : "${var.prefix}-iam-${random_id.uniq.hex}"
   )
   mfa_delete               = var.bucket_enable_versioning && var.bucket_enable_mfa_delete ? "Enabled" : "Disabled"
   bucket_enable_versioning = var.bucket_enable_versioning ? "Enabled" : "Suspended"
   create_kms_key           = var.bucket_enable_encryption && length(var.bucket_sse_key_arn) == 0 && var.bucket_sse_algorithm == "aws:kms" ? 1 : 0
-  bucket_sse_key_arn       = var.bucket_enable_encryption ? (length(var.bucket_sse_key_arn) > 0 ? var.bucket_sse_key_arn : (local.create_kms_key == 1 ? aws_kms_key.lacework_kms_key[0].arn: "")) : ""
+  bucket_sse_key_arn       = var.bucket_enable_encryption ? (length(var.bucket_sse_key_arn) > 0 ? var.bucket_sse_key_arn : (local.create_kms_key == 1 ? aws_kms_key.lacework_kms_key[0].arn : "")) : ""
 }
 
 resource "random_id" "uniq" {
@@ -237,7 +237,7 @@ resource "aws_s3_bucket_versioning" "log_bucket_versioning" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encryption" {
-  count  = var.use_existing_access_log_bucket ? 0 : (var.bucket_logs_disabled ? 0 : var.bucket_enable_encryption? 1: 0)
+  count  = var.use_existing_access_log_bucket ? 0 : (var.bucket_logs_disabled ? 0 : var.bucket_enable_encryption ? 1 : 0)
   bucket = aws_s3_bucket.log_bucket[0].id
   rule {
     apply_server_side_encryption_by_default {
