@@ -67,7 +67,7 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 | <a name="input_bucket_enable_encryption"></a> [bucket\_enable\_encryption](#input\_bucket\_enable\_encryption) | Set this to `true` to enable encryption on a created S3 bucket | `bool` | `true` | no |
 | <a name="input_bucket_enable_mfa_delete"></a> [bucket\_enable\_mfa\_delete](#input\_bucket\_enable\_mfa\_delete) | Set this to `true` to require MFA for object deletion (Requires versioning) | `bool` | `false` | no |
 | <a name="input_bucket_enable_versioning"></a> [bucket\_enable\_versioning](#input\_bucket\_enable\_versioning) | Set this to `true` to enable access versioning on a created S3 bucket | `bool` | `true` | no |
-| <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | Force destroy bucket (Required when bucket not empty) | `bool` | `false` | no |
+| <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | Force destroy bucket (if disabled, terraform will not be able do destroy non-empty bucket) | `bool` | `true` | no |
 | <a name="input_bucket_logs_disabled"></a> [bucket\_logs\_disabled](#input\_bucket\_logs\_disabled) | Set this to `true` to disable access logging on a created S3 bucket | `bool` | `false` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The S3 bucket name is required when setting `use_existing_s3_bucket` to `true` | `string` | `""` | no |
 | <a name="input_bucket_sse_algorithm"></a> [bucket\_sse\_algorithm](#input\_bucket\_sse\_algorithm) | The encryption algorithm to use for S3 bucket server-side encryption | `string` | `"aws:kms"` | no |
