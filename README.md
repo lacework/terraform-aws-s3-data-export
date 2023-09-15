@@ -73,7 +73,6 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 | <a name="input_bucket_sse_algorithm"></a> [bucket\_sse\_algorithm](#input\_bucket\_sse\_algorithm) | The encryption algorithm to use for S3 bucket server-side encryption | `string` | `"aws:kms"` | no |
 | <a name="input_bucket_sse_key_arn"></a> [bucket\_sse\_key\_arn](#input\_bucket\_sse\_key\_arn) | The ARN of the KMS encryption key to be used (Required when using 'aws:kms') | `string` | `""` | no |
 | <a name="input_cross_account_policy_name"></a> [cross\_account\_policy\_name](#input\_cross\_account\_policy\_name) | n/a | `string` | `""` | no |
-| <a name="input_external_id_length"></a> [external\_id\_length](#input\_external\_id\_length) | The length of the external ID to generate. Max length is 1224. Ignored when `use_existing_iam_role` is set to `true` | `number` | `16` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | The IAM role ARN is required when setting `use_existing_iam_role` to `true` | `string` | `""` | no |
 | <a name="input_iam_role_external_id"></a> [iam\_role\_external\_id](#input\_iam\_role\_external\_id) | The external ID configured inside the IAM role is required when setting `use_existing_iam_role` to `true` | `string` | `""` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | The IAM role name. Required to match with `iam_role_arn` if `use_existing_iam_role` is set to `true` | `string` | `""` | no |
