@@ -7,12 +7,13 @@
 
 A Terraform Module to configure the S3 Data Export integration for Lacework.
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_lacework"></a> [lacework](#requirement\_lacework) | ~> 1.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.1 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.6 |
@@ -21,7 +22,7 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 | <a name="provider_lacework"></a> [lacework](#provider\_lacework) | ~> 1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.1 |
 | <a name="provider_time"></a> [time](#provider\_time) | ~> 0.6 |
@@ -30,7 +31,7 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_lacework_s3_iam_role"></a> [lacework\_s3\_iam\_role](#module\_lacework\_s3\_iam\_role) | lacework/iam-role/aws | ~> 0.1 |
+| <a name="module_lacework_s3_iam_role"></a> [lacework\_s3\_iam\_role](#module\_lacework\_s3\_iam\_role) | lacework/iam-role/aws | ~> 0.4 |
 
 ## Resources
 
@@ -73,6 +74,7 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 | <a name="input_bucket_sse_algorithm"></a> [bucket\_sse\_algorithm](#input\_bucket\_sse\_algorithm) | The encryption algorithm to use for S3 bucket server-side encryption | `string` | `"aws:kms"` | no |
 | <a name="input_bucket_sse_key_arn"></a> [bucket\_sse\_key\_arn](#input\_bucket\_sse\_key\_arn) | The ARN of the KMS encryption key to be used (Required when using 'aws:kms') | `string` | `""` | no |
 | <a name="input_cross_account_policy_name"></a> [cross\_account\_policy\_name](#input\_cross\_account\_policy\_name) | n/a | `string` | `""` | no |
+| <a name="input_external_id_length"></a> [external\_id\_length](#input\_external\_id\_length) | **Deprecated** - Will be removed on our next major release v2.0.0 | `number` | `16` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | The IAM role ARN is required when setting `use_existing_iam_role` to `true` | `string` | `""` | no |
 | <a name="input_iam_role_external_id"></a> [iam\_role\_external\_id](#input\_iam\_role\_external\_id) | The external ID configured inside the IAM role is required when setting `use_existing_iam_role` to `true` | `string` | `""` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | The IAM role name. Required to match with `iam_role_arn` if `use_existing_iam_role` is set to `true` | `string` | `""` | no |
@@ -100,4 +102,4 @@ A Terraform Module to configure the S3 Data Export integration for Lacework.
 | <a name="output_external_id"></a> [external\_id](#output\_external\_id) | The External ID configured into the IAM role |
 | <a name="output_iam_role_arn"></a> [iam\_role\_arn](#output\_iam\_role\_arn) | The IAM Role ARN |
 | <a name="output_iam_role_name"></a> [iam\_role\_name](#output\_iam\_role\_name) | The IAM Role name |
-
+<!-- END_TF_DOCS -->
