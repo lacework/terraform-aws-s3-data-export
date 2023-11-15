@@ -113,7 +113,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
     sid    = "Allow Lacework to use KMS Key"
     effect = "Allow"
     principals {
-      identifiers = ["arn:aws:iam::${var.lacework_aws_account_id}:root"]
+      identifiers = ["arn:aws:iam::${var.lacework_aws_account_id}:role/lacework-platform"]
       type        = "AWS"
     }
     actions = [
