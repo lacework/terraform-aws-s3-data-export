@@ -14,6 +14,9 @@ locals {
   bucket_enable_versioning = var.bucket_enable_versioning ? "Enabled" : "Suspended"
   create_kms_key           = var.bucket_enable_encryption && length(var.bucket_sse_key_arn) == 0 && var.bucket_sse_algorithm == "aws:kms" ? 1 : 0
   bucket_sse_key_arn       = var.bucket_enable_encryption ? (length(var.bucket_sse_key_arn) > 0 ? var.bucket_sse_key_arn : (local.create_kms_key == 1 ? aws_kms_key.lacework_kms_key[0].arn : "")) : ""
+  version_file   = "${abspath(path.module)}/VERSION"
+  module_name    = basename(abspath(path.module))
+  module_version = fileexists(local.version_file) ? file(local.version_file) : ""
 }
 
 resource "random_id" "uniq" {
@@ -269,4 +272,9 @@ resource "lacework_data_export_rule" "example" {
   name            = var.lacework_data_export_rule_name
   description     = var.lacework_data_export_rule_description
   integration_ids = [lacework_alert_channel_aws_s3.data_export.id]
+}
+
+data "lacework_metric_module" "lwmetrics" {
+  name    = local.module_name
+  version = local.module_version
 }
