@@ -1,9 +1,6 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v1.3.1`.
+Another day, another release. These are the release notes for the version `v1.3.2`.
 
-## Refactor
-* refactor(role): update to use Lacework external IAM role (#28) (Timothy MacDonald)([50941a6](https://github.com/lacework/terraform-aws-s3-data-export/commit/50941a618b8513441a9b243aa183de2e4b5e3a85))
-## Documentation Updates
-* docs(readme): add terraform docs automation (#27) (Timothy MacDonald)([928db1e](https://github.com/lacework/terraform-aws-s3-data-export/commit/928db1ebfe101211c6dfee9b4053a94c1d1fb73e))
 ## Other Changes
-* ci: version bump to v1.3.1-dev (Lacework)([fb52a9b](https://github.com/lacework/terraform-aws-s3-data-export/commit/fb52a9be5081144b1b5b08d09eba3f4778d077e0))
+* chore: add lacework_metric_module datasource (#30) (Darren)([de7ed09](https://github.com/lacework/terraform-aws-s3-data-export/commit/de7ed096510faae7154903785648a7eaf4a8e1a2))
+* ci: version bump to v1.3.2-dev (Lacework)([be8b9a2](https://github.com/lacework/terraform-aws-s3-data-export/commit/be8b9a2c360b770f8d44ef0622f421c75155117d))
