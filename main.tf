@@ -15,7 +15,7 @@ locals {
   create_kms_key           = var.bucket_enable_encryption && length(var.bucket_sse_key_arn) == 0 && var.bucket_sse_algorithm == "aws:kms" ? 1 : 0
   bucket_sse_key_arn       = var.bucket_enable_encryption ? (length(var.bucket_sse_key_arn) > 0 ? var.bucket_sse_key_arn : (local.create_kms_key == 1 ? aws_kms_key.lacework_kms_key[0].arn : "")) : ""
   version_file   = "${abspath(path.module)}/VERSION"
-  module_name    = basename(abspath(path.module))
+  module_name    = "terraform-aws-s3-data-export"
   module_version = fileexists(local.version_file) ? file(local.version_file) : ""
 }
 
